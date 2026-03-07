@@ -1,8 +1,7 @@
 # 📞 Sistema de Contatos dos Alunos
 
 Sistema desenvolvido para resolver um problema real de uma escola municipal.
-A coordenação perdia tempo procurando números de pais em fichas e cadernos 
-espalhados. Agora todos os contatos ficam centralizados e acessíveis em segundos.
+A coordenação perdia tempo procurando números de pais em fichas e cadernos. Agora todos os contatos ficam centralizados e acessíveis em segundos.
 
 ## 🎯 Problema resolvido
 Coordenação escolar com dificuldade de localizar rapidamente o contato 
