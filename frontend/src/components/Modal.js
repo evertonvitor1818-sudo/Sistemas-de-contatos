@@ -11,40 +11,9 @@ export default function Modal({ aluno, onSalvar, onFechar }) {
   function set(campo, valor) { setDados(d => ({ ...d, [campo]: valor })); }
 
   function salvar() {
-  if (!dados.nome.trim()) return alert('Digite o nome do aluno!');
-
-  if (!dados.matricula || !dados.matricula.trim()) {
-    return alert("Digite a matrícula!")
-    }
-
-  if (dados.matricula) {
-    if (!/^\d+$/.test(dados.matricula)) {
-      return alert('Matricula invalida! Use apenas números.');
-    }
-
-    if (dados.matricula.length !== 5) {
-      return alert('Matricula invalida! Deve ter exatamente 5 dígitos.')
-    }
+    if (!dados.nome.trim()) return alert('Digite o nome do aluno!');
+    onSalvar(dados);
   }
-
-  if (dados.tel1 && dados.tel1.replace(/\D/g, '').length < 11) {
-    return alert('Telefone 1 inválido! Mínimo 11 dígitos.');
-  }
-  if (dados.tel1 && dados.tel1.replace(/\D/g, '').length > 11) {
-    return alert('Telefone 1 inválido! Mínimo 11 dígitos.');
-  }
-
-  if (dados.tel2 && dados.tel2.replace(/\D/g, '').length < 11) {
-    return alert('Telefone 2 inválido! Mínimo 11 dígitos.');
-  }
-  if (dados.tel2 && dados.tel2.replace(/\D/g, '').length > 11) {
-    return alert('Telefone 2 inválido! Mínimo 11 dígitos.');
-  }
-
-  alert('Salvo com sucesso!')
-
-  onSalvar(dados);  // ← só chama no final se tudo ok
-}
 
   return (
     <div className="overlay open" onClick={e => e.target.className === 'overlay open' && onFechar()}>

@@ -8,7 +8,9 @@ const app  = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(cors());
-app.use(express.json());
+app.use(cors());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Buscar todos os alunos
 app.get('/alunos', async (req, res) => {
@@ -22,42 +24,18 @@ app.get('/alunos', async (req, res) => {
 
 // Adicionar aluno
 app.post('/alunos', async (req, res) => {
-
-  const { matricula, nome, nascimento, classe, sexo, situacao, raca, curso, tel1, tel2 } = req.body;
-
-  if (!nome || nome.trim().length < 2) {
-    return res.status(400).json({ erro: 'Nome inválido!' })
-  }
-
-  if (tel1 && tel1.replace(/\D/g, '').length < 11) {
-    return res.status(400).json({ erro: 'Telefone 1 inválido!' })
-  }
-  if (tel1 && tel1.replace(/\D/g, '').length > 11) {
-    return res.status(400).json({ erro: 'Telefone 1 inválido!' })
-  }
-
-  if (tel2 && tel2.replace(/\D/g, '').length < 11) {
-    return res.status(400).json({ erro: 'Telefone 2 inválido!' })
-  }
-  if (tel2 && tel2.replace(/\D/g, '').length > 11) {
-    return res.status(400).json({ erro: 'Telefone 2 inválido!' })
-  }
-
   try {
+    const { matricula, nome, nascimento, classe, sexo, situacao, raca, curso, tel1, tel2 } = req.body;
     const { rows } = await pool.query(
       `INSERT INTO alunos (matricula,nome,nascimento,classe,sexo,situacao,raca,curso,tel1,tel2)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,
       [matricula,nome,nascimento,classe,sexo,situacao,raca,curso,tel1,tel2]
     );
-
     res.json(rows[0]);
-
   } catch (err) {
     res.status(500).json({ erro: err.message });
   }
-
 });
-
 
 // Editar aluno
 app.put('/alunos/:id', async (req, res) => {

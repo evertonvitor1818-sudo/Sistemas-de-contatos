@@ -3,9 +3,6 @@ require('dotenv').config();
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
 });
 
 async function iniciarBanco() {
@@ -25,7 +22,6 @@ async function iniciarBanco() {
       criado_em   TIMESTAMP DEFAULT NOW()
     );
   `);
-
   console.log('✅ Banco iniciado!');
 }
 
