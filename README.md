@@ -1,79 +1,20 @@
 # 📞 Sistema de Contatos dos Alunos
 
-## ▶️ COMO RODAR
+Sistema desenvolvido para resolver um problema real de uma escola municipal.
+A coordenação perdia tempo procurando números de pais em fichas e cadernos. Agora todos os contatos ficam centralizados e acessíveis em segundos.
 
-### 1. BACKEND (servidor)
+## 🎯 Problema resolvido
+Coordenação escolar com dificuldade de localizar rapidamente o contato 
+dos responsáveis na hora de fazer ligações urgentes.
 
-Abra o terminal na pasta `backend`:
+## ✅ Solução
+Sistema web com busca por nome, importação via Excel e acesso direto 
+ao WhatsApp do responsável com um clique.
 
-```
-cd backend
-npm install
-```
+## 🛠 Tecnologias
+- Node.js
+- React
+- PostgreSQL
 
-Crie o arquivo `.env` (copie o `.env.example` e renomeie):
-```
-PORT=3001
-DATABASE_URL=postgresql://postgres:SUA_SENHA@localhost:5432/sistema_escolar
-```
-⚠️ Troque SUA_SENHA pela senha do seu PostgreSQL!
-
-Crie o banco no PostgreSQL:
-```
-psql -U postgres
-CREATE DATABASE sistema_escolar;
-\q
-```
-
-Rode o servidor:
-```
-node server.js
-```
-
-Deve aparecer:
-```
-✅ Banco iniciado!
-🚀 Servidor rodando na porta 3001
-```
-
----
-
-### 2. FRONTEND (tela)
-
-Abra outro terminal na pasta `frontend`:
-
-```
-cd frontend
-npm install
-npm start
-```
-
-Acesse: http://localhost:3000
-
----
-
-## 🔐 LOGIN
-- Usuário: admin
-- Senha: 123
-
----
-
-## 📁 ESTRUTURA
-```
-sistema-escolar/
-  backend/
-    server.js      → servidor Node
-    database.js    → conexão com banco
-    .env           → configurações (criar manualmente)
-    .env.example   → modelo do .env
-  frontend/
-    src/
-      App.js
-      api.js
-      index.css
-      components/
-        Login.js
-        Header.js
-        Alunos.js
-        Modal.js
-```
+## 📌 Status
+Sistema em uso real em escola municipal.
