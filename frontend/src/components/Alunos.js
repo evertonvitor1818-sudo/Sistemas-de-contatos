@@ -240,6 +240,7 @@ export default function Alunos() {
                       <div className="tel-label">📱 Telefone {i+1}</div>
                       <div className="tel-numero">{t}</div>
                       <a className="btn-wpp" href={`https://wa.me/55${t.replace(/\D/g,'')}`} target="_blank" rel="noreferrer">💬 WhatsApp</a>
+                      <a className="btn-ligar" href={`tel:${t.replace(/\D/g,'')}`}>📞 Ligar</a>
                     </div>
                   )) : (
                     <div className="tel-item" style={{gridColumn:'1/-1'}}>
