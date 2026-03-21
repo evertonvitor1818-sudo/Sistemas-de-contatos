@@ -15,6 +15,41 @@ export default function Alunos() {
 
   useEffect(() => { carregar(); }, []);
 
+ function iniciarVoz() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    alert('Seu navegador não suporta reconhecimento de voz!');
+    return;
+  }
+
+  const rec = new SpeechRecognition();
+  rec.lang = 'pt-BR';
+  rec.interimResults = false;
+
+  const btn = document.getElementById('btnMic');
+  btn.textContent = '🔴';
+  btn.style.animation = 'pulsar 1s infinite';
+
+  rec.onresult = function(e) {
+    const texto = e.results[0][0].transcript.replace(/[.,!?]/g, "").trim();
+    setBusca(texto);
+    btn.textContent = '🎤';
+    btn.style.animation = '';
+  };
+
+  rec.onerror = function() {
+    btn.textContent = '🎤';
+    btn.style.animation = '';
+  };
+
+  rec.onend = function() {
+    btn.textContent = '🎤';
+    btn.style.animation = '';
+  };
+
+  rec.start();
+}
+
   async function carregar() {
     try {
       setLoading(true);
@@ -159,7 +194,15 @@ export default function Alunos() {
     <div className="container">
 
       <div className="toolbar">
-        <input className="search" placeholder="🔍 Buscar por nome ou matrícula..." value={busca} onChange={e => setBusca(e.target.value)}/>
+      <div className="search-wrapper">
+        <input
+        className="search"
+      placeholder="🔍 Buscar por nome ou matrícula..."
+      value={busca}
+      onChange={e => setBusca(e.target.value)}
+      />
+      <button className="btn-mic" id="btnMic" onClick={iniciarVoz} title="bucar por voz">🎤</button>
+      </div>
         <label className="btn-label">
           📊 Importar Excel
           <input type="file" accept=".xlsx,.xls" onChange={importarExcel} style={{display:'none'}}/>
