@@ -18,37 +18,46 @@ export default function Alunos() {
  function iniciarVoz() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SpeechRecognition) {
-    alert('Seu navegador não suporta reconhecimento de voz!');
+    alert("Seu navegador não suporta reconhecimento de voz!");
     return;
   }
+  
+  const btn = document.getElementById("btnMic");
 
-  const rec = new SpeechRecognition();
-  rec.lang = 'pt-BR';
-  rec.interimResults = false;
+  if (btn.textContent === "🔴") return;
 
-  const btn = document.getElementById('btnMic');
-  btn.textContent = '🔴';
-  btn.style.animation = 'pulsar 1s infinite';
+  navigator.mediaDevices.getUserMedia({ audio: true })
+  .then(() => {
+    const rec = new SpeechRecognition();
+    rec.lang = "pt-BR";
+    rec.interimResults = false;
+    rec.maxAlternatives = 1;
 
-  rec.onresult = function(e) {
-    const texto = e.results[0][0].transcript.replace(/[.,!?]/g, "").trim();
-    setBusca(texto);
-    btn.textContent = '🎤';
-    btn.style.animation = '';
-  };
 
-  rec.onerror = function() {
-    btn.textContent = '🎤';
-    btn.style.animation = '';
-  };
+    btn.textContent = "🔴";
+    btn.style.animation = "pulsar 1s infinite";
 
-  rec.onend = function() {
-    btn.textContent = '🎤';
-    btn.style.animation = '';
+    rec.onresult = function(e) {
+      const texto = e.results[0][0].transcript.replace(/[.,!?]/g, "").trim();
+      setBusca(texto);
+    };
+
+    rec.onerror = function(e) {
+      console.log("Erro voz", e.error)
+    };
+
+    
+    rec.onend = function() {
+    btn.textContent = "🎤";
+    btn.style.animation = "";
   };
 
   rec.start();
-}
+  })
+  .catch(() => {
+    alert("Permissão de microfone negada! Ative nas configurações do navegador.")
+  });
+ }
 
   async function carregar() {
     try {
