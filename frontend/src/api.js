@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = 'https://contatos-2.onrender.com';
+const API = 'https://contatos-mpl3.onrender.com';
 
 export const getAlunos    = ()          => axios.get(`${API}/alunos`);
 export const addAluno     = (dados)     => axios.post(`${API}/alunos`, dados);
